@@ -1,0 +1,27 @@
+AWS DEPLOYEMENT
+ECS CLUSTER –tweetapp
+This cluster has 5 services-
+•	tweet-ui-service with task definition  task-definition-pipeline is deployed through code pipeline named tweet-ui-service-pipeline  
+Docker image on private ECR- 527121674197.dkr.ecr.ap-south-1.amazonaws.com/tweet-ui-service-ecr:latest
+URL- http://3.111.245.87:9090/swagger-ui.html 
+
+•	auth-service with task definition auth-service-td for Authentication service 
+Docker image -smriti8647/authentication-service:latest
+URL- http://52.66.199.140:8082/swagger-ui.html
+
+•	mongo-service with task definition mongo-task-definition for database
+Docker image-mongo from dockerhub
+can be accesed through-  13.233.214.79:27017
+
+•	tweet-update-service with task definition tweet-update-task-definition  for tweet-update-service
+Docker image- smriti8647/update-service:latest
+URL- http://15.207.99.206:6200/swagger-ui.html
+
+
+
+
+CODE PIPELINE
+ tweet-ui-service-pipeline  
+Source -  github (https://github.com/Smriti8647/producer-service/tree/main) a github connection is created- arn:aws:codestar-connections:ap-south-1:527121674197:connection/79579311-5cd0-4629-a913-78e3847d1199
+ Build - Code Build project (tweet-spring-ui-service-build) done with  buildspec.yml  A Private ECR is created with URI -527121674197.dkr.ecr.ap-south-1.amazonaws.com/tweet-ui-service-ecr to save the docker image created by instructions mentioned in buildspec.yml.
+Deploy –ECS (tweet-ui-service)
